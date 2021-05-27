@@ -36,7 +36,7 @@
       "projectType": "application",
       "root": "apps/demo",
       "sourceRoot": "apps/demo/src",
-      "prefix": "contentful-rich-text-angular-renderer",
+      "prefix": "demo",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -121,7 +121,7 @@
       "projectType": "library",
       "root": "libs/contentful-rich-text-angular-renderer",
       "sourceRoot": "libs/contentful-rich-text-angular-renderer/src",
-      "prefix": "contentful-rich-text-angular-renderer",
+      "prefix": "cf",
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
