@@ -116,6 +116,31 @@
           }
         }
       }
+    },
+    "contentful-rich-text-angular-renderer": {
+      "projectType": "library",
+      "root": "libs/contentful-rich-text-angular-renderer",
+      "sourceRoot": "libs/contentful-rich-text-angular-renderer/src",
+      "prefix": "contentful-rich-text-angular-renderer",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/contentful-rich-text-angular-renderer/src/**/*.ts",
+              "libs/contentful-rich-text-angular-renderer/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/contentful-rich-text-angular-renderer"],
+          "options": {
+            "jestConfig": "libs/contentful-rich-text-angular-renderer/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

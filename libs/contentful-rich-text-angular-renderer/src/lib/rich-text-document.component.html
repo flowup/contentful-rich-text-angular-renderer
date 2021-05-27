@@ -1,0 +1,107 @@
+<ng-container #viewContainer></ng-container>
+
+<ng-container
+  *cfRichTextNode="BLOCKS.DOCUMENT; isDefault: true; let node = node"
+  [cfRichTextChildren]="node"
+></ng-container>
+
+<ng-container *cfRichTextNode="'text'; isDefault: true; let node = node">{{
+  node.value
+}}</ng-container>
+
+<p *cfRichTextNode="BLOCKS.PARAGRAPH; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</p>
+
+<h1 *cfRichTextNode="BLOCKS.HEADING_1; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</h1>
+
+<h2 *cfRichTextNode="BLOCKS.HEADING_2; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</h2>
+
+<h3 *cfRichTextNode="BLOCKS.HEADING_3; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</h3>
+
+<h4 *cfRichTextNode="BLOCKS.HEADING_4; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</h4>
+
+<h5 *cfRichTextNode="BLOCKS.HEADING_5; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</h5>
+
+<h6 *cfRichTextNode="BLOCKS.HEADING_6; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</h6>
+
+<div *cfRichTextNode="BLOCKS.EMBEDDED_ENTRY; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</div>
+
+<img
+  *cfRichTextNode="BLOCKS.EMBEDDED_ASSET; isDefault: true; let node = node"
+  [src]="node.data.target.fields.file.url"
+  [alt]="node.data.target.fields.title"
+/>
+
+<ul *cfRichTextNode="BLOCKS.UL_LIST; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</ul>
+
+<ol *cfRichTextNode="BLOCKS.OL_LIST; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</ol>
+
+<li *cfRichTextNode="BLOCKS.LIST_ITEM; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</li>
+
+<blockquote *cfRichTextNode="BLOCKS.QUOTE; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</blockquote>
+
+<hr *cfRichTextNode="BLOCKS.HR; isDefault: true" />
+
+<span
+  *cfRichTextNode="INLINES.ASSET_HYPERLINK; isDefault: true; let node = node"
+>
+  type: {{ node.nodeType }} id: {{ node.data.target.sys.id }}
+</span>
+
+<span
+  *cfRichTextNode="INLINES.ENTRY_HYPERLINK; isDefault: true; let node = node"
+>
+  type: {{ node.nodeType }} id: {{ node.data.target.sys.id }}
+</span>
+
+<span
+  *cfRichTextNode="INLINES.EMBEDDED_ENTRY; isDefault: true; let node = node"
+>
+  type: {{ node.nodeType }} id: {{ node.data.target.sys.id }}
+</span>
+
+<a
+  *cfRichTextNode="INLINES.HYPERLINK; isDefault: true; let node = node"
+  [href]="node.data.uri"
+>
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</a>
+
+<b *cfRichTextMark="MARKS.BOLD; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</b>
+
+<i *cfRichTextMark="MARKS.ITALIC; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</i>
+
+<u *cfRichTextMark="MARKS.UNDERLINE; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</u>
+
+<code *cfRichTextMark="MARKS.CODE; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node"></ng-container>
+</code>
