@@ -3,8 +3,8 @@
     "package.json": { "dependencies": "*", "devDependencies": "*" },
     ".eslintrc.json": "*"
   },
-  "affected": { "defaultBase": "master" },
-  "npmScope": "contentful-rich-text-angular-renderer",
+  "affected": { "defaultBase": "main" },
+  "npmScope": "flowup",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
