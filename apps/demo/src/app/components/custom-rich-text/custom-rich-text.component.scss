@@ -1,0 +1,71 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css');
+
+figure {
+  margin: 2rem;
+  text-align: center;
+
+  img {
+    max-height: 10rem;
+    object-fit: contain;
+  }
+
+  figcaption {
+    margin-top: 1rem;
+    font-style: italic;
+  }
+}
+
+ol {
+  list-style-type: lower-alpha;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+.inline-code {
+  display: inline;
+}
+
+.blog-post {
+  margin: 2rem;
+  padding: 1rem;
+  box-shadow: 0 0 0.25rem 0 grey;
+  display: grid;
+  grid-template-columns: 10rem auto 1fr;
+  gap: 1rem;
+  align-items: center;
+  justify-items: flex-start;
+  grid-template-areas:
+    'image title title'
+    'image description description'
+    'image avatar author';
+
+  &-image {
+    grid-area: image;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  &-title {
+    grid-area: title;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  &-description {
+    grid-area: description;
+  }
+
+  &-author-avatar {
+    grid-area: avatar;
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  &-author-name {
+    grid-area: author;
+  }
+}

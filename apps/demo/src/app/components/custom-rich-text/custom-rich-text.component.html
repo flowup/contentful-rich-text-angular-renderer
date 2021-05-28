@@ -1,2 +1,53 @@
-<!-- TODO: customize -->
-<div [cfRichTextDocument]="document"></div>
+<div [cfRichTextDocument]="document">
+  <figure *cfRichTextNode="BLOCKS.EMBEDDED_ASSET; let node = node">
+    <img
+      [src]="node.data.target.fields.file.url"
+      [alt]="node.data.target.fields.title"
+    />
+    <figcaption *ngIf="node.data.target.fields.description as caption">
+      {{ caption }}
+    </figcaption>
+  </figure>
+
+  <ng-container *cfRichTextMark="MARKS.CODE; let node = node">
+    <ng-container *ngIf="node.value.includes('\n'); else inlineCode">
+      <pre><code class="hljs" [innerHTML]="node.value | highlightjs:'ts'"></code></pre>
+    </ng-container>
+    <ng-template #inlineCode>
+      <code class="hljs inline-code">{{ node.value }}</code>
+    </ng-template>
+  </ng-container>
+
+  <ol *cfRichTextNode="BLOCKS.OL_LIST; let node = node">
+    <ng-container [cfRichTextChildren]="node"></ng-container>
+  </ol>
+
+  <ul *cfRichTextNode="BLOCKS.UL_LIST; let node = node">
+    <ng-container [cfRichTextChildren]="node"></ng-container>
+  </ul>
+
+  <div
+    class="blog-post"
+    *cfRichTextNode="BLOCKS.EMBEDDED_ENTRY; let node = node"
+  >
+    <img
+      class="blog-post-image"
+      [src]="node.data.target.fields.image.fields.file.url"
+      [alt]="node.data.target.fields.image.fields.description"
+    />
+    <span class="blog-post-title">{{ node.data.target.fields.title }}</span>
+    <span class="blog-post-description">{{
+      node.data.target.fields.description
+    }}</span>
+    <img
+      class="blog-post-author-avatar"
+      [src]="node.data.target.fields.author.fields.photo.fields.file.url"
+      [alt]="node.data.target.fields.author.fields.photo.fields.description"
+    />
+    <span class="blog-post-author-name">{{
+      node.data.target.fields.author.fields.firstName +
+        ' ' +
+        node.data.target.fields.author.fields.lastName
+    }}</span>
+  </div>
+</div>

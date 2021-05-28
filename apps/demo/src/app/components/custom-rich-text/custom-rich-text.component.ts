@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Document } from '@contentful/rich-text-types';
+import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 
 @Component({
   selector: 'demo-custom-rich-text',
@@ -8,4 +8,8 @@ import { Document } from '@contentful/rich-text-types';
 })
 export class CustomRichTextComponent {
   @Input() document: Document;
+
+  readonly BLOCKS = BLOCKS;
+  readonly MARKS = MARKS;
+  readonly INLINES = INLINES;
 }
