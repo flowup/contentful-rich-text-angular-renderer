@@ -2,6 +2,8 @@
 
 **An Angular library for template-driven custom rendering of Contentful rich text fields.**
 
+Check out the [live demo](https://cf-rich-text-ng-demo.web.app/).
+
 ## Motivation
 
 From the [Contentful docs](https://www.contentful.com/developers/docs/concepts/rich-text/):
