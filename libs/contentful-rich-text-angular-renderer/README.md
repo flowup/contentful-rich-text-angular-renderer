@@ -116,4 +116,4 @@ export class FooComponent {
 </div>
 ```
 
-Check out demo app for [another example of customizing a rich text document](../../apps/demo/src/app/components/custom-rich-text/custom-rich-text.component.html).
+Check out demo app for another [example of customizing a rich text document](https://github.com/flowup/contentful-rich-text-angular-renderer/tree/main/apps/demo/src/app/components/custom-rich-text) (used in [live demo](https://cf-rich-text-ng-demo.web.app/)).
