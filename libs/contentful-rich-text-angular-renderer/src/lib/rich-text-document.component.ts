@@ -12,9 +12,12 @@ import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import * as equal from 'fast-deep-equal/es6';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { linkDocumentEntriesAndAssets } from './helpers';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
+import { RichTextFieldFragmentGQL } from './types';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[cfRichTextDocument]',
   templateUrl: './rich-text-document.component.html',
   providers: [CfRichTextTemplatesService],
@@ -37,9 +40,13 @@ export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
     private readonly cdRef: ChangeDetectorRef,
   ) {}
 
-  @Input() set cfRichTextDocument(doc: Document) {
-    if (doc != null) {
-      this.document$.next(doc);
+  @Input() set cfRichTextDocument(
+    value: Document | RichTextFieldFragmentGQL | null,
+  ) {
+    if (value != null) {
+      this.document$.next(
+        'json' in value ? linkDocumentEntriesAndAssets(value) : value,
+      );
     }
   }
 

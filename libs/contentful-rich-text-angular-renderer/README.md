@@ -44,7 +44,9 @@ To simply render a rich text document using the default configuration:
 <div [cfRichTextDocument]="document"></div>
 ```
 
-The input object is expected to match the `Document` type from `@contentful/rich-text-types`. This is the JSON format of rich text fields, as returned by the Contentful Delivery API. Contentful entries may be fetched from the API using [the official JavaScript SDK](https://www.npmjs.com/package/contentful). (**Note**: If want you the entry fields to be strongly typed, you may use the [`@flowup/contentful-client`](https://www.npmjs.com/package/@flowup/contentful-client) and [`@flowup/contentful-types-generator`](https://www.npmjs.com/package/@flowup/contentful-types-generator) packages instead.)
+The input object is expected to match the `Document` type from `@contentful/rich-text-types` (\*). This is the JSON format of rich text fields, as returned by the Contentful Delivery API. Contentful entries may be fetched from the API using [the official JavaScript SDK](https://www.npmjs.com/package/contentful). (**Note**: If want you the entry fields to be strongly typed, you may use the [`@flowup/contentful-client`](https://www.npmjs.com/package/@flowup/contentful-client) and [`@flowup/contentful-types-generator`](https://www.npmjs.com/package/@flowup/contentful-types-generator) packages instead.)
+
+(\*) If you're using the [Contentful GraphQL API](https://www.contentful.com/developers/docs/references/graphql/), then the input object should instead contain the `json` and `links` GraphQL fields (this will take care of [resolving linked entries and assets](https://www.contentful.com/developers/docs/concepts/rich-text/#rendering-the-rich-text-response-from-the-graphql-api-with-linked-assets-and-entries-on-the-front-end)).
 
 The main feature of this library is allowing you to easily override how different types of nodes in the document tree are rendered. Using the provided structural directives, you define not just your own HTML markup, but also your own components, directives, etc.
 
