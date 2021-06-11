@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { Block, Document, Inline, Text } from '@contentful/rich-text-types';
+import { Block, Inline, Text } from '@contentful/rich-text-types';
 
 export type CommonNode = Text | Block | Inline;
 export type CommonNodeType = CommonNode['nodeType'];
@@ -23,7 +23,7 @@ export type AssetNodeData = {
 };
 
 export type RichTextFieldFragmentGQL = {
-  json: Document;
+  json: unknown;
   links?: {
     entries?: {
       inline?: MaybeGQL<EmbeddedEntryFragmentGQL>[];

@@ -41,7 +41,7 @@ export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
   ) {}
 
   @Input() set cfRichTextDocument(
-    value: Document | RichTextFieldFragmentGQL | null,
+    value: Document | RichTextFieldFragmentGQL | null | undefined,
   ) {
     if (value != null) {
       this.document$.next(

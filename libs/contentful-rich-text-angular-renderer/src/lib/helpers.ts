@@ -13,22 +13,27 @@ export function linkDocumentEntriesAndAssets(
 ): Document {
   const entryMap = new Map<string, EmbeddedEntryFragmentGQL>();
   const assetMap = new Map<string, EmbeddedAssetFragmentGQL>();
-  Object.values(gqlRichText.links?.entries ?? {}).forEach(entries => {
-    entries?.forEach(entry => {
-      if (entry?.sys?.id != null) {
-        entryMap.set(entry.sys.id, entry);
-      }
-    });
+  const entries = [
+    ...(gqlRichText.links?.entries?.inline ?? []),
+    ...(gqlRichText.links?.entries?.block ?? []),
+    ...(gqlRichText.links?.entries?.hyperlink ?? []),
+  ];
+  const assets = [
+    ...(gqlRichText.links?.assets?.block ?? []),
+    ...(gqlRichText.links?.assets?.hyperlink ?? []),
+  ];
+  entries.forEach(entry => {
+    if (entry?.sys?.id != null) {
+      entryMap.set(entry.sys.id, entry);
+    }
   });
-  Object.values(gqlRichText.links?.assets ?? {}).forEach(assets => {
-    assets?.forEach(asset => {
-      if (asset?.sys?.id != null) {
-        assetMap.set(asset.sys.id, asset);
-      }
-    });
+  assets.forEach(asset => {
+    if (asset?.sys?.id != null) {
+      assetMap.set(asset.sys.id, asset);
+    }
   });
   return addLinksToNodeAndChildren({
-    node: gqlRichText.json,
+    node: gqlRichText.json as Document,
     entryMap,
     assetMap,
   }) as Document;
