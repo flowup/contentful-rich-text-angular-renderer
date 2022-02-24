@@ -1,38 +1,45 @@
 {
   "version": 1,
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
-  },
-  "defaultProject": "demo",
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "strict": true
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
-    }
-  },
   "projects": {
+    "contentful-rich-text-angular-renderer": {
+      "projectType": "library",
+      "root": "libs/contentful-rich-text-angular-renderer",
+      "sourceRoot": "libs/contentful-rich-text-angular-renderer/src",
+      "prefix": "cf",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/contentful-rich-text-angular-renderer/tsconfig.lib.json",
+            "project": "libs/contentful-rich-text-angular-renderer/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/contentful-rich-text-angular-renderer/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/contentful-rich-text-angular-renderer/src/**/*.ts",
+              "libs/contentful-rich-text-angular-renderer/src/**/*.html"
+            ]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/contentful-rich-text-angular-renderer"],
+          "options": {
+            "jestConfig": "libs/contentful-rich-text-angular-renderer/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "demo": {
       "projectType": "application",
       "root": "apps/demo",
@@ -47,10 +54,15 @@
             "main": "apps/demo/src/main.ts",
             "polyfills": "apps/demo/src/polyfills.ts",
             "tsConfig": "apps/demo/tsconfig.app.json",
-            "aot": true,
             "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
             "styles": ["apps/demo/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -80,7 +92,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -106,7 +119,8 @@
               "apps/demo/src/**/*.ts",
               "apps/demo/src/**/*.html"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "builder": "@nrwl/jest:jest",
@@ -116,44 +130,8 @@
             "passWithNoTests": true
           }
         }
-      }
-    },
-    "contentful-rich-text-angular-renderer": {
-      "projectType": "library",
-      "root": "libs/contentful-rich-text-angular-renderer",
-      "sourceRoot": "libs/contentful-rich-text-angular-renderer/src",
-      "prefix": "cf",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:package",
-          "options": {
-            "tsConfig": "libs/contentful-rich-text-angular-renderer/tsconfig.lib.json",
-            "project": "libs/contentful-rich-text-angular-renderer/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/contentful-rich-text-angular-renderer/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/contentful-rich-text-angular-renderer/src/**/*.ts",
-              "libs/contentful-rich-text-angular-renderer/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/contentful-rich-text-angular-renderer"],
-          "options": {
-            "jestConfig": "libs/contentful-rich-text-angular-renderer/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
+      },
+      "tags": []
     }
   }
 }

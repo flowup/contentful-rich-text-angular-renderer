@@ -1,6 +1,3 @@
-module.exports = {
-  projects: [
-    '<rootDir>/apps/demo',
-    '<rootDir>/libs/contentful-rich-text-angular-renderer',
-  ],
-};
+const { getJestProjects } = require('@nrwl/jest');
+
+module.exports = { projects: getJestProjects() };
