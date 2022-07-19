@@ -9,7 +9,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
-import * as equal from 'fast-deep-equal/es6';
+import  equal from 'fast-deep-equal/es6';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { linkDocumentEntriesAndAssets } from './helpers';
