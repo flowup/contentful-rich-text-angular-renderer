@@ -1,6 +1,6 @@
 {
   "name": "@flowup/contentful-rich-text-angular-renderer",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "peerDependencies": {
     "@angular/core": "^13.3.11",
     "@angular/common": "^13.3.11",
