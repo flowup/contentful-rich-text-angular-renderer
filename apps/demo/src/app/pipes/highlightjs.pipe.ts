@@ -5,7 +5,12 @@ import { highlight, highlightAuto } from 'highlight.js';
   name: 'highlightjs',
 })
 export class HighlightjsPipe implements PipeTransform {
-  transform(code: string, lang?: string): string {
-    return lang ? highlight(lang, code).value : highlightAuto(code).value;
+  transform(code: string, language?: string): string {
+    return language
+      ? highlight(code, {
+          language,
+          ignoreIllegals: true,
+        }).value
+      : highlightAuto(code).value;
   }
 }
