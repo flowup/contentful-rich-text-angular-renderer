@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { highlight, highlightAuto } from 'highlight.js';
+import highlight from "highlight.js"
 
 @Pipe({
   name: 'highlightjs',
@@ -7,10 +7,10 @@ import { highlight, highlightAuto } from 'highlight.js';
 export class HighlightjsPipe implements PipeTransform {
   transform(code: string, language?: string): string {
     return language
-      ? highlight(code, {
+      ? highlight.highlight(code, {
           language,
           ignoreIllegals: true,
         }).value
-      : highlightAuto(code).value;
+      : highlight.highlightAuto(code).value;
   }
 }
