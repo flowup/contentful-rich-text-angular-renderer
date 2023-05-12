@@ -3,7 +3,7 @@
   font-size: 1.5rem;
   color: white;
   padding: 1rem;
-  background-color: darkblue;
+  background-color: #005aff;
 }
 
 @mixin rich-text {
@@ -51,6 +51,7 @@ demo-custom-rich-text {
 .arrow {
   grid-area: arrow;
   font-size: 8rem;
-  color: darkblue;
+  color: #005aff;
   text-align: center;
+  font-weight: bold;
 }
