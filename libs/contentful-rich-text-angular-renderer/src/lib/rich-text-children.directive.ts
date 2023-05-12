@@ -1,10 +1,11 @@
 import {
   Directive,
   EmbeddedViewRef,
+  inject,
   Input,
   OnDestroy,
   ViewContainerRef,
-} from '@angular/core';
+} from "@angular/core";
 import { Text } from '@contentful/rich-text-types';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { CommonNode, NodeContext } from './types';
@@ -13,10 +14,9 @@ import { CommonNode, NodeContext } from './types';
   selector: '[cfRichTextChildren]',
 })
 export class CfRichTextChildrenDirective implements OnDestroy {
-  constructor(
-    private readonly viewContainerRef: ViewContainerRef,
-    private readonly templatesService: CfRichTextTemplatesService,
-  ) {}
+
+  private readonly viewContainerRef = inject(ViewContainerRef);
+  private readonly templatesService = inject(CfRichTextTemplatesService) ;
 
   private nodes: EmbeddedViewRef<NodeContext>[] = [];
 

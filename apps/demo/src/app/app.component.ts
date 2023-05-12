@@ -266,10 +266,9 @@ const initialDocument: Document = {
 })
 export class AppComponent {
   readonly formControl = new FormControl(initialDocument);
-  readonly jsonOptions: JsonEditorOptions;
+  readonly jsonOptions = new JsonEditorOptions();
 
   constructor() {
-    this.jsonOptions = new JsonEditorOptions();
     this.jsonOptions.modes = ['code', 'tree', 'view'];
     this.jsonOptions.enableSort = false;
     this.jsonOptions.enableTransform = false;

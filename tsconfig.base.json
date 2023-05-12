@@ -8,7 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2017",
+    "target": "es2022",
     "esModuleInterop": true,
     "module": "esnext",
     "lib": ["es2017", "dom"],

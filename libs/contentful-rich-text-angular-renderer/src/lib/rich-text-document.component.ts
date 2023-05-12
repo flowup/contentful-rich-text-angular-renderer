@@ -2,12 +2,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+  ViewContainerRef
+} from "@angular/core";
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import  equal from 'fast-deep-equal/es6';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
@@ -35,10 +36,8 @@ export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
     content: [],
   });
 
-  constructor(
-    private readonly templatesService: CfRichTextTemplatesService,
-    private readonly cdRef: ChangeDetectorRef,
-  ) {}
+  private readonly templatesService = inject(CfRichTextTemplatesService);
+  private readonly cdRef = inject(ChangeDetectorRef);
 
   @Input() set cfRichTextDocument(
     value: Document | RichTextFieldFragmentGQL | null | undefined,
