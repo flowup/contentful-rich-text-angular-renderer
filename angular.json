@@ -62,6 +62,11 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
+            "allowedCommonJsDependencies": [
+              "@contentful/rich-text-types",
+              "jsoneditor",
+              "fast-deep-equal/es6"
+            ],
             "namedChunks": true
           },
           "configurations": {
