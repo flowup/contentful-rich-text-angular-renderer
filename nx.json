@@ -2,17 +2,6 @@
   "affected": {
     "defaultBase": "main"
   },
-  "npmScope": "flowup",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/nx-cloud",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "parallel": 1,
-        "accessToken": "OTAzNjhmOGMtNGQwZi00MDQzLWI4M2MtZTk3NzQ2MzkwODFhfHJlYWQtd3JpdGU="
-      }
-    }
-  },
   "targetDependencies": {
     "build": [
       {
@@ -23,7 +12,7 @@
   },
   "defaultProject": "demo",
   "generators": {
-    "@nrwl/angular": {
+    "@nx/angular": {
       "application": {
         "linter": "eslint"
       },
@@ -34,20 +23,35 @@
         "linter": "eslint"
       }
     },
-    "@nrwl/angular:application": {
+    "@nx/angular:application": {
       "style": "scss",
       "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
     },
-    "@nrwl/angular:library": {
+    "@nx/angular:library": {
       "linter": "eslint",
       "unitTestRunner": "jest",
       "strict": true
     },
-    "@nrwl/angular:component": {
+    "@nx/angular:component": {
       "style": "scss"
     }
   },
-  "$schema": "./node_modules/nx/schemas/nx-schema.json"
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "parallel": 1,
+  "targetDefaults": {
+    "build": {
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    },
+    "e2e": {
+      "cache": true
+    }
+  }
 }
