@@ -11,6 +11,11 @@
     ]
   },
   "defaultProject": "demo",
+  "pluginsConfig": {
+    "@nrwl/js": {
+      "analyzeSourceFiles": true
+    }
+  },
   "generators": {
     "@nx/angular": {
       "application": {
