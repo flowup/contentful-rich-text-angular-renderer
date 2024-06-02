@@ -3,7 +3,7 @@
     <img
       [src]="node.data.target.fields.file.url"
       [alt]="node.data.target.fields.title"
-      />
+    />
     @if (node.data.target.fields.description; as caption) {
       <figcaption>
         {{ caption }}
@@ -30,12 +30,12 @@
   <div
     class="blog-post"
     *cfRichTextNode="BLOCKS.EMBEDDED_ENTRY; let node = node"
-    >
+  >
     <img
       class="blog-post-image"
       [src]="node.data.target.fields.image.fields.file.url"
       [alt]="node.data.target.fields.image.fields.description"
-      />
+    />
     <span class="blog-post-title">{{ node.data.target.fields.title }}</span>
     <span class="blog-post-description">{{
       node.data.target.fields.description
@@ -44,12 +44,11 @@
       class="blog-post-author-avatar"
       [src]="node.data.target.fields.author.fields.photo.fields.file.url"
       [alt]="node.data.target.fields.author.fields.photo.fields.description"
-      />
+    />
     <span class="blog-post-author-name">{{
       node.data.target.fields.author.fields.firstName +
-      ' ' +
-      node.data.target.fields.author.fields.lastName
+        ' ' +
+        node.data.target.fields.author.fields.lastName
     }}</span>
   </div>
-
 </div>

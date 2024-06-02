@@ -92,8 +92,7 @@ function addLinkToNode(args: {
         },
       };
     }
-    default: {
+    default:
       return node;
-    }
   }
 }

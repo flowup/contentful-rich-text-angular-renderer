@@ -7,31 +7,31 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef
-} from "@angular/core";
+  ViewContainerRef,
+} from '@angular/core';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
-import  equal from 'fast-deep-equal/es6';
+import equal from 'fast-deep-equal/es6';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { linkDocumentEntriesAndAssets } from './helpers';
+import { CfRichTextChildrenDirective } from './rich-text-children.directive';
+import { CfRichTextMarkDirective } from './rich-text-mark.directive';
+import { CfRichTextNodeDirective } from './rich-text-node.directive';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { RichTextFieldFragmentGQL } from './types';
-import { CfRichTextMarkDirective } from "./rich-text-mark.directive";
-import { CfRichTextChildrenDirective } from "./rich-text-children.directive";
-import { CfRichTextNodeDirective } from "./rich-text-node.directive";
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: '[cfRichTextDocument]',
-    templateUrl: './rich-text-document.component.html',
-    providers: [CfRichTextTemplatesService],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        CfRichTextNodeDirective,
-        CfRichTextChildrenDirective,
-        CfRichTextMarkDirective,
-    ],
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '[cfRichTextDocument]',
+  templateUrl: './rich-text-document.component.html',
+  providers: [CfRichTextTemplatesService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CfRichTextNodeDirective,
+    CfRichTextChildrenDirective,
+    CfRichTextMarkDirective,
+  ],
 })
 export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
   readonly BLOCKS = BLOCKS;

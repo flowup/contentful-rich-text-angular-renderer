@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, TemplateRef } from '@angular/core';
-import { CommonNodeType, NodeContext, TemplateMap } from './types';
 import { BehaviorSubject } from 'rxjs';
+import { CommonNodeType, NodeContext, TemplateMap } from './types';
 
 @Injectable()
 export class CfRichTextTemplatesService implements OnDestroy {

@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import highlight from "highlight.js"
+import highlight from 'highlight.js';
 
 @Pipe({
-    name: 'highlightjs',
-    standalone: true,
+  name: 'highlightjs',
+  standalone: true,
 })
 export class HighlightjsPipe implements PipeTransform {
   transform(code: string, language?: string): string {

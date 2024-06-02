@@ -4,22 +4,22 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef
-} from "@angular/core";
+  TemplateRef,
+} from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { NodeContext } from './types';
 
 @Directive({
-    selector: '[cfRichTextMark]',
-    standalone: true,
+  selector: '[cfRichTextMark]',
+  standalone: true,
 })
 export class CfRichTextMarkDirective implements OnInit, OnDestroy {
   private readonly type$ = new BehaviorSubject<string | null>(null);
   private readonly isDefault$ = new BehaviorSubject<boolean>(false);
 
   private readonly templatesService = inject(CfRichTextTemplatesService);
-  private readonly templateRef = inject(TemplateRef<NodeContext>) ;
+  private readonly templateRef = inject(TemplateRef<NodeContext>);
 
   @Input() set cfRichTextMark(type: string) {
     this.type$.next(type);

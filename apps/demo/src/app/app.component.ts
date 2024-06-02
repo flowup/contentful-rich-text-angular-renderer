@@ -3,9 +3,9 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import { JsonEditorOptions, NgJsonEditorModule } from 'ang-jsoneditor';
 import { Asset, Entry } from 'contentful';
-import { BlogPostEntryFields } from './types';
 import { CustomRichTextComponent } from './components/custom-rich-text/custom-rich-text.component';
 import { DefaultRichTextComponent } from './components/default-rich-text/default-rich-text.component';
+import { BlogPostEntryFields } from './types';
 
 const initialDocument: Document = {
   nodeType: BLOCKS.DOCUMENT,

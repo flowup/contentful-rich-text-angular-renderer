@@ -1,13 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
-import { HighlightjsPipe } from '../../pipes/highlightjs.pipe';
 import {
   CfRichTextChildrenDirective,
   CfRichTextMarkDirective,
   CfRichTextNodeDirective,
   CfRichTextDocumentComponent,
 } from '@flowup/contentful-rich-text-angular-renderer';
-
+import { HighlightjsPipe } from '../../pipes/highlightjs.pipe';
 
 @Component({
   selector: 'demo-custom-rich-text',
@@ -20,7 +19,7 @@ import {
     CfRichTextMarkDirective,
     CfRichTextChildrenDirective,
     HighlightjsPipe,
-],
+  ],
 })
 export class CustomRichTextComponent {
   @Input() document: Document;

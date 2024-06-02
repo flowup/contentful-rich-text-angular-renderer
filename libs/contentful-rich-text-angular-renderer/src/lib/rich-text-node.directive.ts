@@ -4,22 +4,22 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef
-} from "@angular/core";
+  TemplateRef,
+} from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { CommonNodeType, NodeContext } from './types';
 
 @Directive({
-    selector: '[cfRichTextNode]',
-    standalone: true,
+  selector: '[cfRichTextNode]',
+  standalone: true,
 })
 export class CfRichTextNodeDirective implements OnInit, OnDestroy {
   private readonly nodeType$ = new BehaviorSubject<CommonNodeType | null>(null);
   private readonly isDefault$ = new BehaviorSubject<boolean>(false);
 
   private readonly templatesService = inject(CfRichTextTemplatesService);
-  private readonly templateRef = inject(TemplateRef<NodeContext>) ;
+  private readonly templateRef = inject(TemplateRef<NodeContext>);
 
   @Input() set cfRichTextNode(nodeType: CommonNodeType) {
     this.nodeType$.next(nodeType);
