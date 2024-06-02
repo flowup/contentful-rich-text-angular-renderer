@@ -38,7 +38,7 @@ This next example configures the following overrides:
 
 - hyperlinks from YouTube will be rendered as an embedded YouTube player instead of a plain link,
 - other hyperlinks will be opened in a new browser tab,
-- embedded blog post entries will be rendered as cards using a custom Angular component, and will also function as an internal page link,
+- embedded blog posts entries will be rendered as cards using a custom Angular component, and will also function as an internal page link,
 - embedded gallery entries will be rendered using a custom Angular component,
 - text marked as code will be rendered as a standalone code block with syntax highlighting.
 
@@ -46,10 +46,23 @@ This next example configures the following overrides:
 import { Component, Input } from '@angular/core';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import { highlightAuto } from 'highlight.js';
+import {
+  CfRichTextChildrenDirective,
+  CfRichTextMarkDirective,
+  CfRichTextNodeDirective,
+  CfRichTextDocumentComponent,
+} from '@flowup/contentful-rich-text-angular-renderer';
 
 @Component({
   selector: 'app-foo',
   templateUrl: './foo.component.html',
+  standalone: true,
+  imports: [
+    CfRichTextDocumentComponent,
+    CfRichTextNodeDirective,
+    CfRichTextMarkDirective,
+    CfRichTextChildrenDirective,
+  ],
 })
 export class FooComponent {
   @Input() document: Document;
@@ -69,24 +82,30 @@ export class FooComponent {
 ```html
 <div [cfRichTextDocument]="document">
   <ng-container *cfRichTextNode="INLINES.HYPERLINK; let node = node">
-    <iframe *ngIf="YT_EMBED_REGEX.test(node.data.uri); else externalLink" [src]="node.data.uri" [title]="node.content[0].value"></iframe>
-
-    <ng-template #externalLink>
+    @if (YT_EMBED_REGEX.test(node.data.uri)) {
+      <iframe [src]="node.data.uri" [title]="node.content[0].value"></iframe>
+    } @else {
       <a [href]="node.data.uri" target="_blank" rel="noopener noreferrer">
-        <ng-container [cfRichTextChildren]="node"></ng-container>
+        <ng-container [cfRichTextChildren]="node" />
       </a>
-    </ng-template>
+    }
+
   </ng-container>
 
-  <ng-container *cfRichTextNode="BLOCKS.EMBEDDED_ENTRY; let node = node" [ngSwitch]="node.data.target.sys.contentType.sys.id">
-    <a *ngSwitchCase="'blogPost'" [routerLink]="['/post', node.data.target.sys.id]">
-      <app-blog-post-card [entry]="node.data.target"></app-blog-post-card>
-    </a>
-
-    <app-gallery [entry]="node.data.target"></app-gallery>
+  <ng-container *cfRichTextNode="BLOCKS.EMBEDDED_ENTRY; let node = node">
+    @switch (node.data.target.sys.contentType.sys.id) {
+      @case ('blogPost') {
+        <a [routerLink]="['/post', node.data.target.sys.id]">
+          <app-blog-post-card [entry]="node.data.target" />
+        </a>
+      }
+      @default {
+        <app-gallery [entry]="node.data.target" />
+      }
+    }
   </ng-container>
 
-  <pre *cfRichTextMark="MARKS.CODE; let node = node"><code class="hljs" [innerHTML]="highlightCode(node.value)"></code></pre>
+  <code *cfRichTextMark="MARKS.CODE; let node = node" class="hljs" [innerHTML]="highlightCode(node.value)"></code>
 </div>
 ```
 
