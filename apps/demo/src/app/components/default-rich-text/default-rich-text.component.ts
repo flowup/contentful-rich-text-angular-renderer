@@ -10,5 +10,5 @@ import { CfRichTextDocumentComponent } from '@flowup/contentful-rich-text-angula
   imports: [CfRichTextDocumentComponent],
 })
 export class DefaultRichTextComponent {
-  @Input() document: Document;
+  @Input({required: true}) document!: Document;
 }

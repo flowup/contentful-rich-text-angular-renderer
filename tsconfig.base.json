@@ -15,6 +15,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "strict": true,
     "paths": {
       "@flowup/contentful-rich-text-angular-renderer": [
         "libs/contentful-rich-text-angular-renderer/src/index.ts"

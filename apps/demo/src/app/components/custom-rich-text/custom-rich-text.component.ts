@@ -22,7 +22,7 @@ import { HighlightjsPipe } from '../../pipes/highlightjs.pipe';
   ],
 })
 export class CustomRichTextComponent {
-  @Input() document: Document;
+  @Input({required: true}) document!: Document;
 
   readonly BLOCKS = BLOCKS;
   readonly MARKS = MARKS;

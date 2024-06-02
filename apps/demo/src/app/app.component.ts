@@ -252,7 +252,7 @@ const initialDocument: Document = {
               },
             },
           },
-        } as Entry<BlogPostEntryFields>,
+        } as unknown as Entry<BlogPostEntryFields>,
       },
     },
   ],
