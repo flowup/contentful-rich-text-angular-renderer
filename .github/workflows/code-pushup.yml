@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  CP_API_KEY: ${{ secrets.CP_API_KEY }}
+
 jobs:
   code_pushup:
     runs-on: ubuntu-latest
@@ -20,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Collect and upload Code PushUp report
-        run: npx code-pushup autorun --config=code-pushup.config.ts
+        run: npx code-pushup autorun --config=code-pushup.config.ts --progress=false
         env:
           CP_API_KEY: ${{ secrets.CP_API_KEY }}
       - name: Save report files as workflow artifact
