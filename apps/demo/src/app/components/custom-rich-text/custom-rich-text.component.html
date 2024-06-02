@@ -1,8 +1,10 @@
 <div [cfRichTextDocument]="document">
   <figure *cfRichTextNode="BLOCKS.EMBEDDED_ASSET; let node = node">
     <img
-      [src]="node.data.target.fields.file.url"
+      [ngSrc]="node.data.target.fields.file.url"
       [alt]="node.data.target.fields.title"
+      height="320"
+      width="320"
     />
     @if (node.data.target.fields.description; as caption) {
       <figcaption>
@@ -33,8 +35,10 @@
   >
     <img
       class="blog-post-image"
-      [src]="node.data.target.fields.image.fields.file.url"
+      [ngSrc]="node.data.target.fields.image.fields.file.url"
       [alt]="node.data.target.fields.image.fields.description"
+      height="320"
+      width="320"
     />
     <span class="blog-post-title">{{ node.data.target.fields.title }}</span>
     <span class="blog-post-description">{{
@@ -42,8 +46,10 @@
     }}</span>
     <img
       class="blog-post-author-avatar"
-      [src]="node.data.target.fields.author.fields.photo.fields.file.url"
+      [ngSrc]="node.data.target.fields.author.fields.photo.fields.file.url"
       [alt]="node.data.target.fields.author.fields.photo.fields.description"
+      height="320"
+      width="320"
     />
     <span class="blog-post-author-name">{{
       node.data.target.fields.author.fields.firstName +

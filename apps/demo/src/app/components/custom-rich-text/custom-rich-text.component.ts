@@ -7,6 +7,7 @@ import {
   CfRichTextDocumentComponent,
 } from '@flowup/contentful-rich-text-angular-renderer';
 import { HighlightjsPipe } from '../../pipes/highlightjs.pipe';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'demo-custom-rich-text',
@@ -19,6 +20,7 @@ import { HighlightjsPipe } from '../../pipes/highlightjs.pipe';
     CfRichTextMarkDirective,
     CfRichTextChildrenDirective,
     HighlightjsPipe,
+    NgOptimizedImage,
   ],
 })
 export class CustomRichTextComponent {

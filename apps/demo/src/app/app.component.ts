@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import { JsonEditorOptions, NgJsonEditorModule } from 'ang-jsoneditor';
-import { Asset, Entry } from 'contentful';
+import type { Asset, AssetFile, Entry } from 'contentful';
 import { CustomRichTextComponent } from './components/custom-rich-text/custom-rich-text.component';
 import { DefaultRichTextComponent } from './components/default-rich-text/default-rich-text.component';
 import { BlogPostEntryFields } from './types';
@@ -117,6 +117,7 @@ const initialDocument: Document = {
         {
           nodeType: 'text',
           value:
+          // eslint-disable-next-line no-template-curly-in-string
             'function greet(name: string): string {\n  return `Hello, ${name}!`\n}',
           data: {},
           marks: [{ type: MARKS.CODE }],
@@ -204,9 +205,12 @@ const initialDocument: Document = {
             description: 'Image description',
             file: {
               url: 'https://seeklogo.com/images/C/contentful-logo-C395C545BF-seeklogo.com.png',
-            },
+              details: {size: 1000},
+              fileName: 'cf-logo.png',
+              contentType: 'Asset'
+            } satisfies AssetFile,
           },
-        } as Asset,
+        } as unknown as Asset,
       },
     },
     {
