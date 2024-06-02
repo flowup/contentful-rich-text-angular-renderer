@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/demo/src",
   "prefix": "demo",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -11,7 +12,7 @@
         "outputPath": "dist/apps/demo",
         "index": "apps/demo/src/index.html",
         "main": "apps/demo/src/main.ts",
-        "polyfills": "apps/demo/src/polyfills.ts",
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/demo/tsconfig.app.json",
         "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
         "styles": ["apps/demo/src/styles.scss"],
@@ -77,20 +78,14 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["apps/demo/src/**/*.ts", "apps/demo/src/**/*.html"]
-      },
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/demo"],
       "options": {
-        "jestConfig": "apps/demo/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "apps/demo/jest.config.js"
       }
     }
-  },
-  "tags": []
+  }
 }

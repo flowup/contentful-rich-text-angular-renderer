@@ -4,12 +4,14 @@
   "projectType": "library",
   "sourceRoot": "libs/contentful-rich-text-angular-renderer/src",
   "prefix": "cf",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
       "options": {
         "tsConfig": "libs/contentful-rich-text-angular-renderer/tsconfig.lib.json",
-        "project": "libs/contentful-rich-text-angular-renderer/ng-package.json"
+        "project": "libs/contentful-rich-text-angular-renderer/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
@@ -18,14 +20,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/contentful-rich-text-angular-renderer/src/**/*.ts",
-          "libs/contentful-rich-text-angular-renderer/src/**/*.html"
-        ]
-      },
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -33,10 +28,8 @@
         "{workspaceRoot}/coverage/libs/contentful-rich-text-angular-renderer"
       ],
       "options": {
-        "jestConfig": "libs/contentful-rich-text-angular-renderer/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "libs/contentful-rich-text-angular-renderer/jest.config.js"
       }
     }
-  },
-  "tags": []
+  }
 }
