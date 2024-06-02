@@ -43,7 +43,7 @@ export class CfRichTextChildrenDirective implements OnDestroy {
 
   private renderTextNode(node: Text): void {
     const [mark, ...otherMarks] = node.marks;
-    if (mark) {
+    if (node.marks.length > 0) {
       const childNode = { ...node, marks: otherMarks };
       this.nodes.push(
         this.viewContainerRef.createEmbeddedView(

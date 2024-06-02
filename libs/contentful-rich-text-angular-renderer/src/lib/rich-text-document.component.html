@@ -43,8 +43,10 @@
 
 <img
   *cfRichTextNode="BLOCKS.EMBEDDED_ASSET; isDefault: true; let node = node"
-  [src]="node.data.target.fields.file.url"
+  [ngSrc]="node.data.target.fields.file.url"
   [alt]="node.data.target.fields.title"
+  height="300"
+  width="266"
 />
 
 <ul *cfRichTextNode="BLOCKS.UL_LIST; isDefault: true; let node = node">

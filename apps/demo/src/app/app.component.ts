@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import { JsonEditorOptions, NgJsonEditorModule } from 'ang-jsoneditor';
@@ -267,6 +267,7 @@ const initialDocument: Document = {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NgJsonEditorModule,
     ReactiveFormsModule,

@@ -19,18 +19,19 @@ import { CfRichTextMarkDirective } from './rich-text-mark.directive';
 import { CfRichTextNodeDirective } from './rich-text-node.directive';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { RichTextFieldFragmentGQL } from './types';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[cfRichTextDocument]',
   templateUrl: './rich-text-document.component.html',
-  providers: [CfRichTextTemplatesService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     CfRichTextNodeDirective,
     CfRichTextChildrenDirective,
     CfRichTextMarkDirective,
+    NgOptimizedImage,
   ],
 })
 export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
@@ -66,7 +67,7 @@ export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     combineLatest([
       this.viewContainer$,
-      this.document$.pipe(distinctUntilChanged(equal)),
+      this.document$.pipe(distinctUntilChanged(equal as <T>(a: T, b: T) => boolean)),
       this.templatesService.templates$,
     ]).subscribe(([viewContainerRef, doc, templates]) => {
       viewContainerRef.clear();

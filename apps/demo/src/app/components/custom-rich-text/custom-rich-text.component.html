@@ -3,8 +3,8 @@
     <img
       [ngSrc]="node.data.target.fields.file.url"
       [alt]="node.data.target.fields.title"
-      height="320"
-      width="320"
+      height="300"
+      width="266"
     />
     @if (node.data.target.fields.description; as caption) {
       <figcaption>
@@ -48,8 +48,8 @@
       class="blog-post-author-avatar"
       [ngSrc]="node.data.target.fields.author.fields.photo.fields.file.url"
       [alt]="node.data.target.fields.author.fields.photo.fields.description"
-      height="320"
-      width="320"
+      height="96"
+      width="96"
     />
     <span class="blog-post-author-name">{{
       node.data.target.fields.author.fields.firstName +

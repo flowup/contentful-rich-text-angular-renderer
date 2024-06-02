@@ -19,7 +19,7 @@ export class CfRichTextNodeDirective implements OnInit, OnDestroy {
   private readonly isDefault$ = new BehaviorSubject<boolean>(false);
 
   private readonly templatesService = inject(CfRichTextTemplatesService);
-  private readonly templateRef = inject(TemplateRef<NodeContext>);
+  private readonly templateRef = inject<TemplateRef<NodeContext>>(TemplateRef);
 
   @Input() set cfRichTextNode(nodeType: CommonNodeType) {
     this.nodeType$.next(nodeType);

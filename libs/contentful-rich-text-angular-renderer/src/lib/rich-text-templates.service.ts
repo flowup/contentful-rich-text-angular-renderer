@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CommonNodeType, NodeContext, TemplateMap } from './types';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class CfRichTextTemplatesService implements OnDestroy {
   private readonly templatesState$ = new BehaviorSubject<TemplateMap>({});
   readonly templates$ = this.templatesState$.asObservable();
@@ -12,7 +12,7 @@ export class CfRichTextTemplatesService implements OnDestroy {
   }
 
   addTemplate(
-    nodeType: CommonNodeType | string,
+    nodeType: CommonNodeType,
     templateRef: TemplateRef<NodeContext>,
     isDefault: boolean,
   ): void {
