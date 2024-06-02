@@ -5,6 +5,9 @@
   "repository": {
     "url": "https://github.com/flowup/contentful-rich-text-angular-renderer"
   },
+  "engines": {
+    "node": "20"
+  },
   "scripts": {
     "nx": "nx",
     "start": "ng serve",
