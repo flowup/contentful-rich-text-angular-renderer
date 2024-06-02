@@ -21,7 +21,7 @@ jobs:
           node-version-file: 'package.json'
           cache: npm
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --include=optional
       - name: Collect and upload Code PushUp report
         run: npx code-pushup autorun --config=code-pushup.config.ts --progress=false
         env:
