@@ -45,7 +45,7 @@ const config: CoreConfig = {
   ],
   ...(process.env.CP_API_KEY && {
     upload: {
-      server: 'https://app.code-pushup.dev/graphql',
+      server: 'https://api.staging.code-pushup.dev/graphql',
       apiKey: process.env.CP_API_KEY,
       organization: 'flowup',
       project: 'contentful-rich-text-angular-renderer',
