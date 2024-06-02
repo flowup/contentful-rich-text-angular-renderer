@@ -16,13 +16,22 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import { linkDocumentEntriesAndAssets } from './helpers';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { RichTextFieldFragmentGQL } from './types';
+import { CfRichTextMarkDirective } from "./rich-text-mark.directive";
+import { CfRichTextChildrenDirective } from "./rich-text-children.directive";
+import { CfRichTextNodeDirective } from "./rich-text-node.directive";
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: '[cfRichTextDocument]',
-  templateUrl: './rich-text-document.component.html',
-  providers: [CfRichTextTemplatesService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: '[cfRichTextDocument]',
+    templateUrl: './rich-text-document.component.html',
+    providers: [CfRichTextTemplatesService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CfRichTextNodeDirective,
+        CfRichTextChildrenDirective,
+        CfRichTextMarkDirective,
+    ],
 })
 export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
   readonly BLOCKS = BLOCKS;

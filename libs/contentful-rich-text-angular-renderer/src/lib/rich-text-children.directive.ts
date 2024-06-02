@@ -11,7 +11,8 @@ import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { CommonNode, NodeContext } from './types';
 
 @Directive({
-  selector: '[cfRichTextChildren]',
+    selector: '[cfRichTextChildren]',
+    standalone: true,
 })
 export class CfRichTextChildrenDirective implements OnDestroy {
 

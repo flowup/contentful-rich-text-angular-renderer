@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
-import { JsonEditorOptions } from 'ang-jsoneditor';
+import { JsonEditorOptions, NgJsonEditorModule } from 'ang-jsoneditor';
 import { Asset, Entry } from 'contentful';
 import { BlogPostEntryFields } from './types';
+import { CustomRichTextComponent } from './components/custom-rich-text/custom-rich-text.component';
+import { DefaultRichTextComponent } from './components/default-rich-text/default-rich-text.component';
 
 const initialDocument: Document = {
   nodeType: BLOCKS.DOCUMENT,
@@ -201,8 +203,7 @@ const initialDocument: Document = {
             title: 'Image title',
             description: 'Image description',
             file: {
-              url:
-                'https://seeklogo.com/images/C/contentful-logo-C395C545BF-seeklogo.com.png',
+              url: 'https://seeklogo.com/images/C/contentful-logo-C395C545BF-seeklogo.com.png',
             },
           },
         } as Asset,
@@ -233,8 +234,7 @@ const initialDocument: Document = {
             image: {
               fields: {
                 file: {
-                  url:
-                    'https://seeklogo.com/images/A/angular-logo-B76B1CDE98-seeklogo.com.png',
+                  url: 'https://angular.dev/assets/images/press-kit/angular_icon_gradient.gif',
                 },
               },
             },
@@ -245,8 +245,7 @@ const initialDocument: Document = {
                 photo: {
                   fields: {
                     file: {
-                      url:
-                        'https://www.scubadiving.com/sites/scubadiving.com/files/styles/opengraph_1_91x1/public/images/2015/10/darth-vader.jpg?itok=fW9Tvc0i',
+                      url: 'https://angular.dev/assets/images/press-kit/angular_icon_gradient.gif',
                     },
                   },
                 },
@@ -263,6 +262,13 @@ const initialDocument: Document = {
   selector: 'demo-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [
+    NgJsonEditorModule,
+    ReactiveFormsModule,
+    DefaultRichTextComponent,
+    CustomRichTextComponent,
+  ],
 })
 export class AppComponent {
   readonly formControl = new FormControl(initialDocument);

@@ -20,22 +20,6 @@ Assuming you already have an Angular project, simply install this package from N
 npm install @flowup/contentful-rich-text-angular-renderer @contentful/rich-text-types fast-deep-equal
 ```
 
-Then import the library module, so that its directives get recognized in your templates:
-
-```ts
-// ...
-import { CfRichTextModule } from '@flowup/contentful-rich-text-angular-renderer';
-
-@NgModule({
-  // ...
-  imports: [
-    // ...
-    CfRichTextModule,
-  ],
-})
-export class AppModule {}
-```
-
 ## Usage
 
 To simply render a rich text document using the default configuration:
@@ -85,11 +69,7 @@ export class FooComponent {
 ```html
 <div [cfRichTextDocument]="document">
   <ng-container *cfRichTextNode="INLINES.HYPERLINK; let node = node">
-    <iframe
-      *ngIf="YT_EMBED_REGEX.test(node.data.uri); else externalLink"
-      [src]="node.data.uri"
-      [title]="node.content[0].value"
-    ></iframe>
+    <iframe *ngIf="YT_EMBED_REGEX.test(node.data.uri); else externalLink" [src]="node.data.uri" [title]="node.content[0].value"></iframe>
 
     <ng-template #externalLink>
       <a [href]="node.data.uri" target="_blank" rel="noopener noreferrer">
@@ -98,23 +78,15 @@ export class FooComponent {
     </ng-template>
   </ng-container>
 
-  <ng-container
-    *cfRichTextNode="BLOCKS.EMBEDDED_ENTRY; let node = node"
-    [ngSwitch]="node.data.target.sys.contentType.sys.id"
-  >
-    <a
-      *ngSwitchCase="'blogPost'"
-      [routerLink]="['/post', node.data.target.sys.id]"
-    >
+  <ng-container *cfRichTextNode="BLOCKS.EMBEDDED_ENTRY; let node = node" [ngSwitch]="node.data.target.sys.contentType.sys.id">
+    <a *ngSwitchCase="'blogPost'" [routerLink]="['/post', node.data.target.sys.id]">
       <app-blog-post-card [entry]="node.data.target"></app-blog-post-card>
     </a>
 
     <app-gallery [entry]="node.data.target"></app-gallery>
   </ng-container>
 
-  <pre
-    *cfRichTextMark="MARKS.CODE; let node = node"
-  ><code class="hljs" [innerHTML]="highlightCode(node.value)"></code></pre>
+  <pre *cfRichTextMark="MARKS.CODE; let node = node"><code class="hljs" [innerHTML]="highlightCode(node.value)"></code></pre>
 </div>
 ```
 

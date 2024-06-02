@@ -11,7 +11,8 @@ import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { CommonNodeType, NodeContext } from './types';
 
 @Directive({
-  selector: '[cfRichTextNode]',
+    selector: '[cfRichTextNode]',
+    standalone: true,
 })
 export class CfRichTextNodeDirective implements OnInit, OnDestroy {
   private readonly nodeType$ = new BehaviorSubject<CommonNodeType | null>(null);

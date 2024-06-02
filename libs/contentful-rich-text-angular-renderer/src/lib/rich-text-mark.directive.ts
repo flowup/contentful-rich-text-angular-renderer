@@ -11,7 +11,8 @@ import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { NodeContext } from './types';
 
 @Directive({
-  selector: '[cfRichTextMark]',
+    selector: '[cfRichTextMark]',
+    standalone: true,
 })
 export class CfRichTextMarkDirective implements OnInit, OnDestroy {
   private readonly type$ = new BehaviorSubject<string | null>(null);
