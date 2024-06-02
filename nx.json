@@ -1,7 +1,4 @@
 {
-  "affected": {
-    "defaultBase": "main"
-  },
   "targetDependencies": {
     "build": [
       {
@@ -58,5 +55,7 @@
     "e2e": {
       "cache": true
     }
-  }
+  },
+  "useInferencePlugins": false,
+  "defaultBase": "main"
 }
