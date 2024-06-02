@@ -1,6 +1,6 @@
 {
   "name": "@flowup/contentful-rich-text-angular-renderer",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/flowup/contentful-rich-text-angular-renderer"
