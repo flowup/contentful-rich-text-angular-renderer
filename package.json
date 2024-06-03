@@ -102,5 +102,11 @@
     "ts-jest": "^29.1.4",
     "ts-node": "^10.9.2",
     "typescript": "5.4.5"
+  },
+  "optionalDependencies": {
+    "@nx/nx-darwin-arm64": "19.1.1",
+    "@nx/nx-darwin-x64": "19.1.1",
+    "@nx/nx-linux-x64-gnu": "19.1.1",
+    "@nx/nx-win32-x64-msvc": "19.1.1"
   }
 }
