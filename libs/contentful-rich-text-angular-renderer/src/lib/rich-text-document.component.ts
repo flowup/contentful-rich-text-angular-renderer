@@ -11,8 +11,7 @@ import {
 } from '@angular/core';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import equal from 'fast-deep-equal/es6';
-import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Subject , distinctUntilChanged } from 'rxjs';
 import { linkDocumentEntriesAndAssets } from './helpers';
 import { CfRichTextChildrenDirective } from './rich-text-children.directive';
 import { CfRichTextMarkDirective } from './rich-text-mark.directive';
@@ -22,17 +21,15 @@ import { RichTextFieldFragmentGQL } from './types';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: '[cfRichTextDocument]',
-  templateUrl: './rich-text-document.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    CfRichTextNodeDirective,
-    CfRichTextChildrenDirective,
-    CfRichTextMarkDirective,
-    NgOptimizedImage,
-  ],
+    selector: '[cfRichTextDocument]',
+    templateUrl: './rich-text-document.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CfRichTextNodeDirective,
+        CfRichTextChildrenDirective,
+        CfRichTextMarkDirective,
+        NgOptimizedImage,
+    ]
 })
 export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
   readonly BLOCKS = BLOCKS;

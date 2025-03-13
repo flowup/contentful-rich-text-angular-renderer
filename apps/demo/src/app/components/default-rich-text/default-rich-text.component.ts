@@ -6,10 +6,9 @@ import { CfRichTextDocumentComponent } from '@flowup/contentful-rich-text-angula
   selector: 'demo-default-rich-text',
   templateUrl: './default-rich-text.component.html',
   styleUrls: ['./default-rich-text.component.scss'],
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CfRichTextDocumentComponent],
 })
 export class DefaultRichTextComponent {
-  @Input({required: true}) document!: Document;
+  @Input({ required: true }) document!: Document;
 }

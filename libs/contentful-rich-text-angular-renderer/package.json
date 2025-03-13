@@ -1,15 +1,15 @@
 {
   "name": "@flowup/contentful-rich-text-angular-renderer",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/flowup/contentful-rich-text-angular-renderer"
   },
   "peerDependencies": {
-    "@angular/core": "^18.0.0",
-    "@angular/common": "^18.0.0",
-    "@angular/platform-browser-dynamic": "^18.0.0",
-    "@contentful/rich-text-types": "^16.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/common": "^19.0.0",
+    "@angular/platform-browser-dynamic": "^19.0.0",
+    "@contentful/rich-text-types": "^16.0.0 || ^17.0.0",
     "rxjs": "^7.0.0 || ^8.0.0"
   },
   "dependencies": {

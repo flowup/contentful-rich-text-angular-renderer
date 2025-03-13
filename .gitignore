@@ -43,4 +43,4 @@ Thumbs.db
 .firebase
 firebase-debug.log
 
-.nx/cache
+.nx
