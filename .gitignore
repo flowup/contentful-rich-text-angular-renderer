@@ -44,3 +44,5 @@ Thumbs.db
 firebase-debug.log
 
 .nx
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

@@ -23,13 +23,39 @@
       },
       "storybook-configuration": {
         "linter": "eslint"
+      },
+      "directive": {
+        "type": "directive"
+      },
+      "service": {
+        "type": "service"
+      },
+      "scam": {
+        "type": "component"
+      },
+      "scam-directive": {
+        "type": "directive"
+      },
+      "guard": {
+        "typeSeparator": "."
+      },
+      "interceptor": {
+        "typeSeparator": "."
+      },
+      "module": {
+        "typeSeparator": "."
+      },
+      "pipe": {
+        "typeSeparator": "."
+      },
+      "resolver": {
+        "typeSeparator": "."
       }
     },
     "@nx/angular:application": {
       "style": "scss",
       "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+      "unitTestRunner": "jest"
     },
     "@nx/angular:library": {
       "linter": "eslint",
@@ -37,7 +63,32 @@
       "strict": true
     },
     "@nx/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "type": "component"
+    },
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
