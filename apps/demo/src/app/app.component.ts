@@ -275,7 +275,9 @@ const initialDocument: Document = {
   ],
 })
 export class AppComponent {
-  readonly formControl = new FormControl(initialDocument);
+  readonly formControl = new FormControl(initialDocument, {
+    nonNullable: true,
+  });
   readonly jsonOptions = new JsonEditorOptions();
 
   constructor() {
