@@ -1,11 +1,9 @@
-import jest from '@code-pushup/eslint-config/jest';
 import typescript from '@code-pushup/eslint-config/typescript';
 import nxEslintPlugin from '@nx/eslint-plugin';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   ...typescript,
-  ...jest,
   {
     settings: {
       'import/resolver': {

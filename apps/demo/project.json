@@ -80,13 +80,6 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/demo"],
-      "options": {
-        "jestConfig": "apps/demo/jest.config.js"
-      }
     }
   }
 }

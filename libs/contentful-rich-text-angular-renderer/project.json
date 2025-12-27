@@ -20,15 +20,6 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/libs/contentful-rich-text-angular-renderer"
-      ],
-      "options": {
-        "jestConfig": "libs/contentful-rich-text-angular-renderer/jest.config.js"
-      }
     }
   }
 }
