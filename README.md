@@ -15,3 +15,4 @@ This repository hosts the `@flowup/contentful-rich-text-angular-renderer` librar
    - Versions of (peer) dependencies.
    - Correct `version` of lib.
 7. Publish with `npm publish`
+8. Publish demo app with `firebase deploy --only hosting`

@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "predeploy": "npx nx build demo --prod",
+    "predeploy": "nx run demo:build:production",
     "public": "dist/apps/demo",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
