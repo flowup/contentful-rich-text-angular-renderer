@@ -10,4 +10,28 @@ export default tseslint.config(...baseConfig, ...angular, {
       tsconfigRootDir: import.meta.dirname,
     },
   },
+  rules: {
+    '@angular-eslint/component-selector': [
+      'warn',
+      {
+        type: 'element',
+        style: 'kebab-case',
+        prefix: ['demo'],
+      },
+    ],
+    '@angular-eslint/directive-selector': [
+      'warn',
+      {
+        type: 'attribute',
+        style: 'camelCase',
+        prefix: 'demo',
+      },
+    ],
+    '@angular-eslint/pipe-prefix': [
+      'warn',
+      {
+        prefixes: ['demo'],
+      },
+    ],
+  }
 });
