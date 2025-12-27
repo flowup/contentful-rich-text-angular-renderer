@@ -15,7 +15,7 @@
 
   <ng-container *cfRichTextMark="MARKS.CODE; let node = node">
     @if (node.value.includes('\n')) {
-      <pre><code class="hljs" [innerHTML]="node.value | highlightjs:'ts'"></code></pre>
+      <pre><code class="hljs" [innerHTML]="node.value | demoHighlightJS:'ts'"></code></pre>
     } @else {
       <code class="hljs inline-code">{{ node.value }}</code>
     }
