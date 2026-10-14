@@ -2,10 +2,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
-import type { Asset, AssetFile, Entry } from 'contentful';
+import type { AssetFile } from 'contentful';
 import { CustomRichTextComponent } from './components/custom-rich-text/custom-rich-text.component';
 import { DefaultRichTextComponent } from './components/default-rich-text/default-rich-text.component';
-import { BlogPostEntryFields } from './types';
 
 const initialDocument: Document = {
   nodeType: BLOCKS.DOCUMENT,
@@ -210,7 +209,7 @@ const initialDocument: Document = {
               contentType: 'Asset',
             } satisfies AssetFile,
           },
-        } as unknown as Asset,
+        },
       },
     },
     {
@@ -256,7 +255,7 @@ const initialDocument: Document = {
               },
             },
           },
-        } as unknown as Entry<BlogPostEntryFields>,
+        },
       },
     },
   ],
@@ -265,7 +264,7 @@ const initialDocument: Document = {
 @Component({
   selector: 'demo-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     JsonEditorComponent,

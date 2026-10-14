@@ -3,7 +3,6 @@ import highlight from 'highlight.js';
 
 @Pipe({
   name: 'demoHighlightJS',
-  standalone: true,
 })
 export class HighlightjsPipe implements PipeTransform {
   transform(code: string, language?: string): string {

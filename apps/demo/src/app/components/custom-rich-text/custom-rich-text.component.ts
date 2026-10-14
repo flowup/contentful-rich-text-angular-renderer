@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import {
   CfRichTextChildrenDirective,
@@ -12,7 +12,7 @@ import { HighlightjsPipe } from '../../pipes/highlightjs.pipe';
 @Component({
   selector: 'demo-custom-rich-text',
   templateUrl: './custom-rich-text.component.html',
-  styleUrls: ['./custom-rich-text.component.scss'],
+  styleUrl: './custom-rich-text.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CfRichTextDocumentComponent,
@@ -24,7 +24,7 @@ import { HighlightjsPipe } from '../../pipes/highlightjs.pipe';
   ],
 })
 export class CustomRichTextComponent {
-  @Input({ required: true }) document!: Document;
+  readonly document = input.required<Document>();
 
   readonly BLOCKS = BLOCKS;
   readonly MARKS = MARKS;

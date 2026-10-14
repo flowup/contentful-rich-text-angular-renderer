@@ -1,4 +1,4 @@
-<div [cfRichTextDocument]="document">
+<div [cfRichTextDocument]="document()">
   <figure *cfRichTextNode="BLOCKS.EMBEDDED_ASSET; let node = node">
     <img
       [ngSrc]="node.data.target.fields.file.url"

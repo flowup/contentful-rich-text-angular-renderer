@@ -1,7 +1,6 @@
 import { BLOCKS, Document, INLINES, Node } from '@contentful/rich-text-types';
 import {
   AssetNodeData,
-  CommonNode,
   EmbeddedAssetFragmentGQL,
   EmbeddedEntryFragmentGQL,
   EntryNodeData,
@@ -32,6 +31,8 @@ export function linkDocumentEntriesAndAssets(
       assetMap.set(asset.sys.id, asset);
     }
   });
+  // GraphQL types the rich text JSON as unknown, so the document shape has to be asserted
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment
   return addLinksToNodeAndChildren({
     node: gqlRichText.json as Document,
     entryMap,
@@ -44,7 +45,7 @@ function addLinksToNodeAndChildren(args: {
   entryMap: ReadonlyMap<string, EmbeddedEntryFragmentGQL>;
   assetMap: ReadonlyMap<string, EmbeddedAssetFragmentGQL>;
 }): Node {
-  const node = args.node as CommonNode;
+  const { node } = args;
   return {
     ...addLinkToNode(args),
     ...('content' in node &&

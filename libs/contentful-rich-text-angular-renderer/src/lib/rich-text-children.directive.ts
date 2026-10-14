@@ -12,7 +12,6 @@ import { CommonNode, NodeContext } from './types';
 
 @Directive({
   selector: '[cfRichTextChildren]',
-  standalone: true,
 })
 export class CfRichTextChildrenDirective implements OnDestroy {
   private readonly viewContainerRef = inject(ViewContainerRef);
