@@ -11,6 +11,8 @@ export default tseslint.config(...baseConfig, ...angular, {
     },
   },
   rules: {
+    // Removed in angular-eslint v22 but still enabled by @code-pushup/eslint-config/angular.
+    '@angular-eslint/no-conflicting-lifecycle': 'off',
     '@angular-eslint/component-selector': [
       'warn',
       {

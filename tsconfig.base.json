@@ -4,7 +4,7 @@
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -14,12 +14,11 @@
     "lib": ["ES2022", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
     "strict": true,
     "strictNullChecks": true,
     "paths": {
       "@flowup/contentful-rich-text-angular-renderer": [
-        "libs/contentful-rich-text-angular-renderer/src/index.ts"
+        "./libs/contentful-rich-text-angular-renderer/src/index.ts"
       ]
     }
   },
