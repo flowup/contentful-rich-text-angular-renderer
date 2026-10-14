@@ -7,18 +7,22 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath.base}"],
       "options": {
-        "outputPath": "dist/apps/demo",
+        "outputPath": {
+          "base": "dist/apps/demo",
+          "browser": ""
+        },
         "index": "apps/demo/src/index.html",
-        "main": "apps/demo/src/main.ts",
+        "browser": "apps/demo/src/main.ts",
         "tsConfig": "apps/demo/tsconfig.app.json",
         "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
-        "styles": ["apps/demo/src/styles.scss"],
-        "scripts": [],
-        "vendorChunk": true,
+        "styles": [
+          "node_modules/jsoneditor/dist/jsoneditor.min.css",
+          "apps/demo/src/styles.scss"
+        ],
         "extractLicenses": false,
-        "buildOptimizer": false,
         "sourceMap": true,
         "optimization": false,
         "allowedCommonJsDependencies": [
@@ -30,19 +34,11 @@
       },
       "configurations": {
         "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/demo/src/environments/environment.ts",
-              "with": "apps/demo/src/environments/environment.prod.ts"
-            }
-          ],
           "optimization": true,
           "outputHashing": "all",
           "sourceMap": false,
           "namedChunks": false,
           "extractLicenses": true,
-          "vendorChunk": false,
-          "buildOptimizer": true,
           "budgets": [
             {
               "type": "initial",
@@ -56,11 +52,11 @@
             }
           ]
         }
-      },
-      "defaultConfiguration": ""
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
+      "continuous": true,
       "options": {
         "buildTarget": "demo:build"
       },
@@ -68,17 +64,13 @@
         "production": {
           "buildTarget": "demo:build:production"
         }
-      },
-      "continuous": true
+      }
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "demo:build"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

@@ -17,9 +17,6 @@
           "tsConfig": "libs/contentful-rich-text-angular-renderer/tsconfig.lib.prod.json"
         }
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }

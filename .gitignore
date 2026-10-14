@@ -49,3 +49,5 @@ firebase-debug.log
 
 .claude/worktrees
 .claude/settings.local.json
+# Code PushUp reports
+.code-pushup

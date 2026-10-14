@@ -9,17 +9,6 @@
     "types": [],
     "lib": ["dom", "ES2022"]
   },
-  "angularCompilerOptions": {
-    "skipTemplateCodegen": true,
-    "extendedDiagnostics": {
-      "checks": {
-        "nullishCoalescingNotNullable": "suppress",
-        "optionalChainNotNullable": "suppress"
-      }
-    },
-    "strictMetadataEmit": true,
-    "enableResourceInlining": true
-  },
   "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.test.ts"],
   "include": ["**/*.ts"]
 }
