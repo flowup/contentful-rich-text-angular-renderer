@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -11,25 +12,30 @@ import {
 } from '@angular/core';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import equal from 'fast-deep-equal/es6';
-import { BehaviorSubject, combineLatest, Subject , distinctUntilChanged } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Subject,
+  distinctUntilChanged,
+} from 'rxjs';
 import { linkDocumentEntriesAndAssets } from './helpers';
 import { CfRichTextChildrenDirective } from './rich-text-children.directive';
 import { CfRichTextMarkDirective } from './rich-text-mark.directive';
 import { CfRichTextNodeDirective } from './rich-text-node.directive';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { RichTextFieldFragmentGQL } from './types';
-import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-    selector: '[cfRichTextDocument]',
-    templateUrl: './rich-text-document.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CfRichTextNodeDirective,
-        CfRichTextChildrenDirective,
-        CfRichTextMarkDirective,
-        NgOptimizedImage,
-    ]
+  selector: '[cfRichTextDocument]',
+  templateUrl: './rich-text-document.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CfRichTextTemplatesService],
+  imports: [
+    CfRichTextNodeDirective,
+    CfRichTextChildrenDirective,
+    CfRichTextMarkDirective,
+    NgOptimizedImage,
+  ],
 })
 export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
   readonly BLOCKS = BLOCKS;
@@ -64,7 +70,9 @@ export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     combineLatest([
       this.viewContainer$,
-      this.document$.pipe(distinctUntilChanged(equal as <T>(a: T, b: T) => boolean)),
+      this.document$.pipe(
+        distinctUntilChanged(equal as <T>(a: T, b: T) => boolean),
+      ),
       this.templatesService.templates$,
     ]).subscribe(([viewContainerRef, doc, templates]) => {
       viewContainerRef.clear();

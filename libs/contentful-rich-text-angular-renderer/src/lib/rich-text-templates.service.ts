@@ -1,8 +1,10 @@
 import { Injectable, OnDestroy, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CommonNodeType, NodeContext, TemplateMap } from './types';
+import { NodeContext, TemplateMap } from './types';
 
-@Injectable({providedIn: 'root'})
+// Provided by each CfRichTextDocumentComponent, so custom templates don't leak between documents
+// eslint-disable-next-line @angular-eslint/use-injectable-provided-in
+@Injectable()
 export class CfRichTextTemplatesService implements OnDestroy {
   private readonly templatesState$ = new BehaviorSubject<TemplateMap>({});
   readonly templates$ = this.templatesState$.asObservable();
@@ -12,14 +14,15 @@ export class CfRichTextTemplatesService implements OnDestroy {
   }
 
   addTemplate(
-    nodeType: CommonNodeType,
+    // node type or mark type
+    type: string,
     templateRef: TemplateRef<NodeContext>,
     isDefault: boolean,
   ): void {
-    if (!isDefault || this.templates[nodeType] == null) {
+    if (!isDefault || !Object.hasOwn(this.templates, type)) {
       this.templatesState$.next({
         ...this.templates,
-        [nodeType]: templateRef,
+        [type]: templateRef,
       });
     }
   }

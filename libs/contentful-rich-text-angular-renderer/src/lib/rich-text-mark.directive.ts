@@ -8,18 +8,19 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
-import { CommonNodeType, NodeContext } from './types';
+import { NodeContext } from './types';
 
 @Directive({
   selector: '[cfRichTextMark]',
-  standalone: true,
 })
 export class CfRichTextMarkDirective implements OnInit, OnDestroy {
   private readonly type$ = new BehaviorSubject<string | null>(null);
   private readonly isDefault$ = new BehaviorSubject<boolean>(false);
 
   private readonly templatesService = inject(CfRichTextTemplatesService);
-  private readonly templateRef = inject<TemplateRef<NodeContext>>(TemplateRef<NodeContext>);
+  private readonly templateRef = inject<TemplateRef<NodeContext>>(
+    TemplateRef<NodeContext>,
+  );
 
   @Input() set cfRichTextMark(type: string) {
     this.type$.next(type);
@@ -33,7 +34,7 @@ export class CfRichTextMarkDirective implements OnInit, OnDestroy {
     combineLatest([this.type$, this.isDefault$]).subscribe(
       ([type, isDefault]) => {
         if (type != null) {
-          this.templatesService.addTemplate(type as CommonNodeType, this.templateRef, isDefault);
+          this.templatesService.addTemplate(type, this.templateRef, isDefault);
         }
       },
     );
