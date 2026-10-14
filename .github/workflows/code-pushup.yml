@@ -12,6 +12,7 @@ jobs:
   code_pushup:
     runs-on: ubuntu-latest
     name: Code PushUp
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
