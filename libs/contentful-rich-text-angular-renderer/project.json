@@ -7,7 +7,8 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/angular:package",
+      "executor": "@angular/build:ng-packagr",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
         "tsConfig": "libs/contentful-rich-text-angular-renderer/tsconfig.lib.json",
         "project": "libs/contentful-rich-text-angular-renderer/ng-package.json"
@@ -15,7 +16,19 @@
       "configurations": {
         "production": {
           "tsConfig": "libs/contentful-rich-text-angular-renderer/tsconfig.lib.prod.json"
-        }
+        },
+        "development": {}
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "cache": true,
+      "inputs": ["default", "^default", { "externalDependencies": ["vitest"] }],
+      "options": {
+        "buildTarget": "contentful-rich-text-angular-renderer:build:development",
+        "tsConfig": "libs/contentful-rich-text-angular-renderer/tsconfig.spec.json",
+        "watch": false
       }
     }
   }
