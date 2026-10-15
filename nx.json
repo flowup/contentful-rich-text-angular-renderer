@@ -102,5 +102,25 @@
         "targetName": "lint"
       }
     }
-  ]
+  ],
+  "release": {
+    "projects": ["contentful-rich-text-angular-renderer"],
+    "projectsRelationship": "independent",
+    "releaseTag": {
+      "pattern": "v{version}"
+    },
+    "version": {
+      "conventionalCommits": true,
+      "fallbackCurrentVersionResolver": "disk"
+    },
+    "changelog": {
+      "projectChangelogs": {
+        "file": "{workspaceRoot}/CHANGELOG.md",
+        "createRelease": "github"
+      }
+    },
+    "git": {
+      "commitMessage": "chore(release): publish"
+    }
+  }
 }

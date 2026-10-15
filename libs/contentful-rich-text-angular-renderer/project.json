@@ -31,6 +31,11 @@
         "runnerConfig": "libs/contentful-rich-text-angular-renderer/vitest-base.config.mts",
         "watch": false
       }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
     }
   }
 }
