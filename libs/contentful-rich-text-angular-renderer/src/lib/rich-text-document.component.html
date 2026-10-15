@@ -41,13 +41,21 @@
   <ng-container [cfRichTextChildren]="node" />
 </div>
 
-<img
+<ng-container
   *cfRichTextNode="BLOCKS.EMBEDDED_ASSET; isDefault: true; let node = node"
-  [ngSrc]="node.data.target.fields.file.url"
-  [alt]="node.data.target.fields.title"
-  height="300"
-  width="266"
-/>
+>
+  <!-- REST assets have fields.file.url, GraphQL assets have url at the top level, unresolved links have neither -->
+  @let target = node.data.target;
+  @let url = target?.fields?.file?.url ?? target?.url;
+  @if (url) {
+    <img
+      [ngSrc]="url"
+      [alt]="target.fields?.title ?? target.title ?? ''"
+      height="300"
+      width="266"
+    />
+  }
+</ng-container>
 
 <ul *cfRichTextNode="BLOCKS.UL_LIST; isDefault: true; let node = node">
   <ng-container [cfRichTextChildren]="node" />

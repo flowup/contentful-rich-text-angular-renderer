@@ -256,6 +256,54 @@ describe('CfRichTextDocumentComponent', () => {
       expect(img?.getAttribute('height')).toBe('300');
     });
 
+    it(`renders a GraphQL-shaped ${BLOCKS.EMBEDDED_ASSET}`, async () => {
+      const fixture = await render(DefaultHostComponent);
+      fixture.componentInstance.document.set({
+        json: doc(block(BLOCKS.EMBEDDED_ASSET, [], entryTarget('asset-1'))),
+        links: {
+          assets: {
+            block: [
+              {
+                sys: { id: 'asset-1' },
+                url: '/graphql.png',
+                title: 'GraphQL title',
+              } as never,
+            ],
+          },
+        },
+      });
+      await fixture.whenStable();
+      const img = query(fixture).querySelector('img');
+      expect(img?.getAttribute('src')).toBe('/graphql.png');
+      expect(img?.getAttribute('alt')).toBe('GraphQL title');
+    });
+
+    it(`renders nothing for an unresolved ${BLOCKS.EMBEDDED_ASSET}`, async () => {
+      expect(
+        await renderDefault(
+          doc(
+            block(BLOCKS.EMBEDDED_ASSET, [], {
+              target: {
+                sys: { id: 'missing', type: 'Link', linkType: 'Asset' },
+              },
+            }),
+            block(BLOCKS.PARAGRAPH, [text('after')]),
+          ),
+        ),
+      ).toBe('<p>after</p>');
+    });
+
+    it(`renders nothing for a GraphQL ${BLOCKS.EMBEDDED_ASSET} missing from links`, async () => {
+      expect(
+        await renderDefault({
+          json: doc(
+            block(BLOCKS.EMBEDDED_ASSET, [], entryTarget('missing')),
+            block(BLOCKS.PARAGRAPH, [text('after')]),
+          ),
+        }),
+      ).toBe('<p>after</p>');
+    });
+
     it(`renders ${INLINES.HYPERLINK}`, async () => {
       expect(
         await renderDefault(
