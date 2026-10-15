@@ -1,25 +1,38 @@
 import {
   Directive,
-  EmbeddedViewRef,
+  effect,
   inject,
-  Input,
-  OnDestroy,
+  input,
+  untracked,
   ViewContainerRef,
 } from '@angular/core';
 import { Text } from '@contentful/rich-text-types';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
-import { CommonNode, NodeContext } from './types';
+import { CommonNode, TemplateMap } from './types';
 
 @Directive({
   selector: '[cfRichTextChildren]',
 })
-export class CfRichTextChildrenDirective implements OnDestroy {
+export class CfRichTextChildrenDirective {
+  readonly cfRichTextChildren = input.required<CommonNode>();
+
   private readonly viewContainerRef = inject(ViewContainerRef);
   private readonly templatesService = inject(CfRichTextTemplatesService);
 
-  private nodes: EmbeddedViewRef<NodeContext>[] = [];
+  constructor() {
+    effect(onCleanup => {
+      const parentNode = this.cfRichTextChildren();
+      // the document re-renders the whole tree when templates change
+      untracked(() => {
+        this.renderChildren(parentNode);
+      });
+      onCleanup(() => {
+        this.viewContainerRef.clear();
+      });
+    });
+  }
 
-  @Input() set cfRichTextChildren(parentNode: CommonNode) {
+  private renderChildren(parentNode: CommonNode): void {
     if (parentNode.nodeType === 'text') {
       this.renderTextNode(parentNode);
     } else {
@@ -27,14 +40,7 @@ export class CfRichTextChildrenDirective implements OnDestroy {
         if (childNode.nodeType === 'text') {
           this.renderTextNode(childNode);
         } else {
-          const template = this.templatesService.templates[childNode.nodeType];
-          if (template) {
-            this.nodes.push(
-              this.viewContainerRef.createEmbeddedView(template, {
-                node: childNode,
-              }),
-            );
-          }
+          this.renderNode(childNode.nodeType, childNode);
         }
       });
     }
@@ -43,28 +49,18 @@ export class CfRichTextChildrenDirective implements OnDestroy {
   private renderTextNode(node: Text): void {
     const [mark, ...otherMarks] = node.marks;
     if (node.marks.length > 0) {
-      const childNode = { ...node, marks: otherMarks };
-      this.nodes.push(
-        this.viewContainerRef.createEmbeddedView(
-          this.templatesService.templates[mark.type],
-          { node: childNode },
-        ),
-      );
+      this.renderNode(mark.type, { ...node, marks: otherMarks });
     } else {
-      const template = this.templatesService.templates[node.nodeType];
-      if (template) {
-        this.nodes.push(
-          this.viewContainerRef.createEmbeddedView(template, { node }),
-        );
-      }
+      this.renderNode(node.nodeType, node);
     }
   }
 
-  ngOnDestroy(): void {
-    this.viewContainerRef.clear();
-    this.nodes.forEach(ref => {
-      ref.destroy();
-    });
-    this.nodes = [];
+  private renderNode(type: string, node: CommonNode): void {
+    // not every node or mark type has a template
+    const templates: Partial<TemplateMap> = this.templatesService.templates();
+    const template = templates[type];
+    if (template) {
+      this.viewContainerRef.createEmbeddedView(template, { node });
+    }
   }
 }

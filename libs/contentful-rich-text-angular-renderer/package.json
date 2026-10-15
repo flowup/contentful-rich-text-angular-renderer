@@ -8,8 +8,7 @@
   "peerDependencies": {
     "@angular/core": "^22.0.0",
     "@angular/common": "^22.0.0",
-    "@contentful/rich-text-types": "^16.0.0 || ^17.0.0",
-    "rxjs": "^7.0.0 || ^8.0.0"
+    "@contentful/rich-text-types": "^16.0.0 || ^17.0.0"
   },
   "dependencies": {
     "tslib": "^2.4.1"

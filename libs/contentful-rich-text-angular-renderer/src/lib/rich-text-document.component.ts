@@ -1,29 +1,29 @@
 import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
+  effect,
   inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+  input,
+  linkedSignal,
+  untracked,
+  viewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { BLOCKS, Document, INLINES, MARKS } from '@contentful/rich-text-types';
 import equal from 'fast-deep-equal/es6';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Subject,
-  distinctUntilChanged,
-} from 'rxjs';
 import { linkDocumentEntriesAndAssets } from './helpers';
 import { CfRichTextChildrenDirective } from './rich-text-children.directive';
 import { CfRichTextMarkDirective } from './rich-text-mark.directive';
 import { CfRichTextNodeDirective } from './rich-text-node.directive';
 import { CfRichTextTemplatesService } from './rich-text-templates.service';
 import { RichTextFieldFragmentGQL } from './types';
+
+const EMPTY_DOCUMENT: Document = {
+  nodeType: BLOCKS.DOCUMENT,
+  data: {},
+  content: [],
+};
 
 @Component({
   selector: '[cfRichTextDocument]',
@@ -37,57 +37,46 @@ import { RichTextFieldFragmentGQL } from './types';
     NgOptimizedImage,
   ],
 })
-export class CfRichTextDocumentComponent implements OnInit, OnDestroy {
+export class CfRichTextDocumentComponent {
   readonly BLOCKS = BLOCKS;
   readonly INLINES = INLINES;
   readonly MARKS = MARKS;
 
-  private readonly viewContainer$ = new Subject<ViewContainerRef>();
-  private readonly document$ = new BehaviorSubject<Document>({
-    nodeType: BLOCKS.DOCUMENT,
-    data: {},
-    content: [],
-  });
+  readonly cfRichTextDocument = input<
+    Document | RichTextFieldFragmentGQL | null | undefined
+  >();
 
   private readonly templatesService = inject(CfRichTextTemplatesService);
-  private readonly cdRef = inject(ChangeDetectorRef);
+  private readonly viewContainer = viewChild('viewContainer', {
+    read: ViewContainerRef,
+  });
 
-  @Input() set cfRichTextDocument(
-    value: Document | RichTextFieldFragmentGQL | null | undefined,
-  ) {
-    if (value != null) {
-      this.document$.next(
-        'json' in value ? linkDocumentEntriesAndAssets(value) : value,
-      );
-    }
-  }
-
-  @ViewChild('viewContainer', { read: ViewContainerRef })
-  set viewContainer(viewContainer: ViewContainerRef) {
-    this.viewContainer$.next(viewContainer);
-  }
-
-  ngOnInit(): void {
-    combineLatest([
-      this.viewContainer$,
-      this.document$.pipe(
-        distinctUntilChanged(equal as <T>(a: T, b: T) => boolean),
-      ),
-      this.templatesService.templates$,
-    ]).subscribe(([viewContainerRef, doc, templates]) => {
-      viewContainerRef.clear();
-      const template = templates[doc.nodeType];
-      if (template) {
-        viewContainerRef.createEmbeddedView(template, {
-          node: doc,
-        });
+  // null and undefined keep the last rendered document
+  private readonly document = linkedSignal<
+    Document | RichTextFieldFragmentGQL | null | undefined,
+    Document
+  >({
+    source: this.cfRichTextDocument,
+    computation: (value, previous) => {
+      if (value == null) {
+        return previous?.value ?? EMPTY_DOCUMENT;
       }
-      this.cdRef.detectChanges();
-    });
-  }
+      return 'json' in value ? linkDocumentEntriesAndAssets(value) : value;
+    },
+    equal,
+  });
 
-  ngOnDestroy(): void {
-    this.viewContainer$.complete();
-    this.document$.complete();
+  constructor() {
+    effect(() => {
+      const viewContainerRef = this.viewContainer();
+      const doc = this.document();
+      const template = this.templatesService.templates()[doc.nodeType];
+      untracked(() => {
+        viewContainerRef?.clear();
+        if (template) {
+          viewContainerRef?.createEmbeddedView(template, { node: doc });
+        }
+      });
+    });
   }
 }
