@@ -28,6 +28,7 @@
       "options": {
         "buildTarget": "contentful-rich-text-angular-renderer:build:development",
         "tsConfig": "libs/contentful-rich-text-angular-renderer/tsconfig.spec.json",
+        "runnerConfig": "libs/contentful-rich-text-angular-renderer/vitest-base.config.mts",
         "watch": false
       }
     }
