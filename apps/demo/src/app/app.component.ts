@@ -200,12 +200,12 @@ const initialDocument: Document = {
       data: {
         target: {
           fields: {
-            title: 'Image title',
-            description: 'Image description',
+            title: 'Mountain landscape',
+            description: 'Sunny mountains (rendered as a figure with a caption)',
             file: {
-              url: 'https://seeklogo.com/images/C/contentful-logo-C395C545BF-seeklogo.com.png',
+              url: 'assets/sample-image.svg',
               details: { size: 1000 },
-              fileName: 'cf-logo.png',
+              fileName: 'sample-image.svg',
               contentType: 'Asset',
             } satisfies AssetFile,
           },
