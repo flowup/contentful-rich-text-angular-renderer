@@ -33,7 +33,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+          key: playwright-${{ env.ImageOS }}-${{ steps.playwright.outputs.version }}
 
       - name: Install Chromium for browser tests
         if: steps.playwright-cache.outputs.cache-hit != 'true'
