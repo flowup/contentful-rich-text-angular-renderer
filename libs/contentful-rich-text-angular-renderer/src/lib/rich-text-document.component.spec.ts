@@ -318,6 +318,39 @@ describe('CfRichTextDocumentComponent', () => {
       ).toBe('<p><a href="https://example.com/">link</a></p>');
     });
 
+    it(`sanitizes javascript: URIs in ${INLINES.HYPERLINK}`, async () => {
+      expect(
+        await renderDefault(
+          doc(
+            block(BLOCKS.PARAGRAPH, [
+              inline(INLINES.HYPERLINK, [text('link')], {
+                uri: 'javascript:alert(1)',
+              }),
+            ]),
+          ),
+        ),
+      ).toBe('<p><a href="unsafe:javascript:alert(1)">link</a></p>');
+    });
+
+    it(`skips ${INLINES.RESOURCE_HYPERLINK} and ${INLINES.EMBEDDED_RESOURCE} without breaking siblings`, async () => {
+      const resource = {
+        target: { sys: { urn: 'crn:x', type: 'ResourceLink', linkType: 'X' } },
+      };
+      expect(
+        await renderDefault(
+          doc(
+            block(BLOCKS.PARAGRAPH, [
+              text('a'),
+              inline(INLINES.RESOURCE_HYPERLINK, [text('ignored')], resource),
+              text('b'),
+              inline(INLINES.EMBEDDED_RESOURCE, [], resource),
+              text('c'),
+            ]),
+          ),
+        ),
+      ).toBe('<p>abc</p>');
+    });
+
     it.each([
       INLINES.ASSET_HYPERLINK,
       INLINES.ENTRY_HYPERLINK,
