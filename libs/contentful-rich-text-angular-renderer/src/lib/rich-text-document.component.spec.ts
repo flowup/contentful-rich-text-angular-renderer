@@ -134,6 +134,42 @@ class TwoDocumentsHostComponent {
   );
 }
 
+@Component({
+  imports: [
+    CfRichTextDocumentComponent,
+    CfRichTextNodeDirective,
+    CfRichTextMarkDirective,
+    CfRichTextChildrenDirective,
+  ],
+  template: `
+    <div id="doc" [cfRichTextDocument]="document()">
+      <section *cfRichTextNode="BLOCKS.HEADING_1; let node = node">
+        <ng-container [cfRichTextChildren]="node" />
+      </section>
+      @if (show()) {
+        <article *cfRichTextNode="nodeType(); let node = node">
+          <ng-container [cfRichTextChildren]="node" />
+        </article>
+        <mark *cfRichTextMark="markType(); let node = node">
+          <ng-container [cfRichTextChildren]="node" />
+        </mark>
+      }
+    </div>
+  `,
+})
+class DynamicHostComponent {
+  readonly BLOCKS = BLOCKS;
+  readonly document = signal<DocumentInput>(
+    doc(
+      block(BLOCKS.HEADING_1, [text('one', MARKS.BOLD)]),
+      block(BLOCKS.HEADING_2, [text('two', MARKS.ITALIC)]),
+    ),
+  );
+  readonly show = signal(true);
+  readonly nodeType = signal<BLOCKS>(BLOCKS.HEADING_1);
+  readonly markType = signal<string>(MARKS.BOLD);
+}
+
 async function render<T>(host: Type<T>): Promise<ComponentFixture<T>> {
   const fixture = TestBed.createComponent(host);
   await fixture.whenStable();
@@ -427,6 +463,58 @@ describe('CfRichTextDocumentComponent', () => {
       await fixture.whenStable();
       expect(html(query(fixture))).toBe('<aside><section>q</section></aside>');
     });
+
+    it('restore the default template when removed', async () => {
+      const fixture = await render(CustomHostComponent);
+      fixture.componentInstance.showQuote.set(true);
+      fixture.componentInstance.document.set(
+        doc(block(BLOCKS.QUOTE, [block(BLOCKS.PARAGRAPH, [text('q')])])),
+      );
+      await fixture.whenStable();
+      expect(html(query(fixture))).toBe('<aside><section>q</section></aside>');
+
+      fixture.componentInstance.showQuote.set(false);
+      await fixture.whenStable();
+      expect(html(query(fixture))).toBe(
+        '<blockquote><section>q</section></blockquote>',
+      );
+
+      fixture.componentInstance.document.set(
+        doc(block(BLOCKS.QUOTE, [block(BLOCKS.PARAGRAPH, [text('changed')])])),
+      );
+      await fixture.whenStable();
+      expect(html(query(fixture))).toBe(
+        '<blockquote><section>changed</section></blockquote>',
+      );
+    });
+
+    it('restore the previous custom template when removed', async () => {
+      const fixture = await render(DynamicHostComponent);
+      expect(html(query(fixture))).toBe(
+        '<article><mark>one</mark></article><h2><i>two</i></h2>',
+      );
+
+      fixture.componentInstance.show.set(false);
+      await fixture.whenStable();
+      expect(html(query(fixture))).toBe(
+        '<section><b>one</b></section><h2><i>two</i></h2>',
+      );
+
+      fixture.componentInstance.show.set(true);
+      await fixture.whenStable();
+      expect(html(query(fixture))).toBe(
+        '<article><mark>one</mark></article><h2><i>two</i></h2>',
+      );
+    });
+
+    it('move to the new type when the type input changes', async () => {
+      const fixture = await render(DynamicHostComponent);
+      fixture.componentInstance.nodeType.set(BLOCKS.HEADING_2);
+      fixture.componentInstance.markType.set(MARKS.ITALIC);
+      await fixture.whenStable();
+      expect(html(query(fixture))).toBe(
+        '<section><b>one</b></section><article><mark>two</mark></article>',
+      );
     });
   });
 

@@ -13,12 +13,17 @@ export class CfRichTextMarkDirective {
   private readonly templateRef = inject<TemplateRef<NodeContext>>(TemplateRef);
 
   constructor() {
-    effect(() => {
+    effect(onCleanup => {
+      const type = this.cfRichTextMark();
       this.templatesService.addTemplate(
-        this.cfRichTextMark(),
+        type,
         this.templateRef,
         this.cfRichTextMarkIsDefault(),
       );
+      // runs when the type changes or the directive is destroyed
+      onCleanup(() => {
+        this.templatesService.removeTemplate(type, this.templateRef);
+      });
     });
   }
 }
