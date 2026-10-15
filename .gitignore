@@ -51,3 +51,6 @@ firebase-debug.log
 .claude/settings.local.json
 # Code PushUp reports
 .code-pushup
+
+# Vitest browser mode failure screenshots
+.vitest

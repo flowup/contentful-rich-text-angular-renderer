@@ -66,6 +66,29 @@
         }
       }
     },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        {
+          "externalDependencies": [
+            "vitest",
+            "@vitest/browser-playwright",
+            "playwright"
+          ]
+        }
+      ],
+      "options": {
+        "buildTarget": "demo:build",
+        "tsConfig": "apps/demo/tsconfig.spec.json",
+        "runnerConfig": "apps/demo/vitest-base.config.mts",
+        "browsers": ["chromium"],
+        "headless": true,
+        "watch": false
+      }
+    },
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
       "options": {
