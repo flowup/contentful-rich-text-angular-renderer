@@ -255,11 +255,39 @@ describe('CfRichTextDocumentComponent', () => {
       [MARKS.ITALIC, '<i>x</i>'],
       [MARKS.UNDERLINE, '<u>x</u>'],
       [MARKS.CODE, '<code>x</code>'],
+      [MARKS.SUPERSCRIPT, '<sup>x</sup>'],
+      [MARKS.SUBSCRIPT, '<sub>x</sub>'],
+      [MARKS.STRIKETHROUGH, '<s>x</s>'],
     ])('renders %s mark', async (mark, expected) => {
       expect(
         await renderDefault(doc(block(BLOCKS.PARAGRAPH, [text('x', mark)]))),
       ).toBe(`<p>${expected}</p>`);
     });
+
+    it('combines superscript with other marks', async () => {
+      expect(
+        await renderDefault(
+          doc(
+            block(BLOCKS.PARAGRAPH, [text('x', MARKS.BOLD, MARKS.SUPERSCRIPT)]),
+          ),
+        ),
+      ).toBe('<p><b><sup>x</sup></b></p>');
+    });
+
+    it.each([
+      [['custom-mark'], '<p>x</p>'],
+      [['custom-mark', MARKS.BOLD], '<p><b>x</b></p>'],
+      [[MARKS.BOLD, 'custom-mark', MARKS.ITALIC], '<p><b><i>x</i></b></p>'],
+    ])(
+      'skips marks without a template but keeps the text (marks: %j)',
+      async (marks, expected) => {
+        expect(
+          await renderDefault(
+            doc(block(BLOCKS.PARAGRAPH, [text('x', ...marks)])),
+          ),
+        ).toBe(expected);
+      },
+    );
 
     it('renders nested marks in order', async () => {
       expect(
@@ -398,6 +426,7 @@ describe('CfRichTextDocumentComponent', () => {
       fixture.componentInstance.showQuote.set(true);
       await fixture.whenStable();
       expect(html(query(fixture))).toBe('<aside><section>q</section></aside>');
+    });
     });
   });
 

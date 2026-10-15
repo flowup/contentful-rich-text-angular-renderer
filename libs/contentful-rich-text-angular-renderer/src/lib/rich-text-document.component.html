@@ -107,3 +107,15 @@
 <code *cfRichTextMark="MARKS.CODE; isDefault: true; let node = node">
   <ng-container [cfRichTextChildren]="node" />
 </code>
+
+<sup *cfRichTextMark="MARKS.SUPERSCRIPT; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node" />
+</sup>
+
+<sub *cfRichTextMark="MARKS.SUBSCRIPT; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node" />
+</sub>
+
+<s *cfRichTextMark="MARKS.STRIKETHROUGH; isDefault: true; let node = node">
+  <ng-container [cfRichTextChildren]="node" />
+</s>

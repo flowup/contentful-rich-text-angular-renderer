@@ -47,11 +47,16 @@ export class CfRichTextChildrenDirective {
   }
 
   private renderTextNode(node: Text): void {
-    const [mark, ...otherMarks] = node.marks;
-    if (node.marks.length > 0) {
-      this.renderNode(mark.type, { ...node, marks: otherMarks });
-    } else {
+    // marks without a template are skipped, the text keeps its other marks
+    const templates: Partial<TemplateMap> = this.templatesService.templates();
+    const markIndex = node.marks.findIndex(mark => templates[mark.type]);
+    if (markIndex === -1) {
       this.renderNode(node.nodeType, node);
+    } else {
+      this.renderNode(node.marks[markIndex].type, {
+        ...node,
+        marks: node.marks.slice(markIndex + 1),
+      });
     }
   }
 
